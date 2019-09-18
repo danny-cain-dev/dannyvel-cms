@@ -51,7 +51,7 @@
         "vue-template-compiler": "^2.1.4",
         "vuedraggable": "^2.23.0",
         "webpack": "^2.2.0-rc.3",
-        "webpack-dev-server": "^2.2.0-rc.0",
+        "webpack-dev-server": "^3.1.11",
         "webpack-manifest-plugin": "^1.1.0",
         "webpack-md5-hash": "^0.0.5"
     },
