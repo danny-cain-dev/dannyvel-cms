@@ -1,0 +1,18 @@
+{
+    "name" : "cms",
+    "singletons" : ["Dannyvel\\Plugins\\CMS\\Providers\\CMSProvider"],
+    "views_namespace" : "dannyvel",
+    "namespace" : "Dannyvel\\Plugins\\CMS",
+    "publishes" : {
+        "assets/vendor/cms/" : "vendor/cms/"
+    },
+    "seeders" : [
+
+    ],
+    "commands" : [
+
+    ],
+    "navigation" : [
+
+    ]
+}

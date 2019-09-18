@@ -1,0 +1,23 @@
+{
+    "name" : "dannyvel/cms",
+    "type" : "library",
+    "description" : "Simple CMS / Generic CRUD tool for laravel",
+    "require" : {
+        "laravel/framework" : "5.8.*"
+    },
+    "autoload" : {
+        "psr-4" : {
+            "Dannyvel\\Plugins\\CMS\\" : "classes/"
+        }
+    },
+    "extra" : {
+        "laravel" : {
+            "providers" : [
+                "Dannyvel\\Plugins\\CMS\\Providers\\CMSServiceProvider"
+            ],
+            "aliases" : [
+
+            ]
+        }
+    }
+}

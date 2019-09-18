@@ -1,0 +1,99 @@
+#===============================================================================
+# Common
+#===============================================================================
+
+# Environment config
+/.env
+/.env.testing
+
+# Apache config
+/public/.htaccess
+
+# Executables (e.g. wkhtmltopdf)
+/bin/
+
+# Backups
+/backups/
+
+# Maintenance mode switch
+/MAINTENANCE
+
+# Sessions
+/sessions/*
+
+# Vagrant
+/.vagrant/
+
+# Package managers
+node_modules/
+/vendor/
+
+# npm
+npm-debug.log
+yarn-error.log
+
+# cPanel files
+/www/cgi-bin/
+.ea-php-cli.cache
+.ftpquota
+
+# Log files
+/logs/
+error_log
+
+# Test output
+/test-coverage/
+/wraith/shots/
+.phpunit.result.cache
+
+# Xdebug profiler
+/xdebug-profiler/
+
+# Compiled files
+*.pyc
+
+# Backup files
+*~
+
+# Editor files
+.history/
+.idea/
+.vscode/
+nbproject/
+*.sublime-workspace
+~$*
+
+# Operating system files
+*.DS_Store
+desktop.ini
+Thumbs.db
+
+#===============================================================================
+# Laravel
+#===============================================================================
+# Also see Laravel's default .gitignore files, e.g. storage/app/.gitignore
+
+# Storage
+/storage/*.key
+
+# Symlinks (created by setup.sh)
+/public/storage
+/public/vendor
+
+# We don't use these, but just in case...
+/Homestead.yaml
+/Homestead.json
+/public/hot
+
+#===============================================================================
+# Project-specific
+#===============================================================================
+
+
+
+#===============================================================================
+# Common
+#===============================================================================
+
+# This must be last to take priority
+!.gitkeep
