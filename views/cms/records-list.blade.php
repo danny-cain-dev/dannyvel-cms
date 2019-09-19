@@ -18,7 +18,7 @@
             </tr>
             @foreach($records as $record)
                 <tr>
-                    @can(App\Enums\PermissionType::EditRecord, $record)
+                    @can(Dannyvel\Plugins\CMS\Enums\CMSPermissionsEnum::EditRecord, $record)
                         <td><a href="{{ route('cms.edit.'.$type->type, $record->id) }}">{{ $record->name }}</a></td>
                     @else
                         <td>{{ $record->name }}</td>

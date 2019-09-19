@@ -2,17 +2,15 @@
 
 namespace Dannyvel\Plugins\CMS\Controllers;
 
-use App\Enums\PermissionType;
 use App\Http\Controllers\Controller;
 use Dannyvel\Plugins\CMS\DTO\ContentTypeDTO;
+use Dannyvel\Plugins\CMS\Enums\CMSPermissionsEnum;
 use Dannyvel\Plugins\CMS\Providers\CMSProvider;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
-use Illuminate\Database\Eloquent\Relations\MorphOne;
-use Illuminate\Database\Eloquent\Relations\MorphTo;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Pagination\Paginator;
@@ -36,7 +34,7 @@ class CMSController extends Controller {
         }
 
         $results = call_user_func([$config->class, 'all'])->filter(function($model) use($cms) {
-            return Gate::allows(PermissionType::EditRecord, $model);
+            return Gate::allows(CMSPermissionsEnum::EditRecord, $model);
         });
 
         return view('dannyvel::cms/records-list', [
@@ -51,7 +49,7 @@ class CMSController extends Controller {
             throw new \RuntimeException("Unable to locate content type '{$type}'");
         }
 
-        abort_unless(Gate::allows(PermissionType::EditRecords, $type), 403);
+        abort_unless(Gate::allows(CMSPermissionsEnum::EditRecords, $type), 403);
         $instance = new $config->class();
         return view('dannyvel::cms/record-edit', [
             'type' => $config,
@@ -71,7 +69,7 @@ class CMSController extends Controller {
          * @var \Illuminate\Database\Eloquent\Model $instance
          */
         $instance = call_user_func([$config->class, 'where'], 'id', $id)->firstOrFail();
-        abort_unless(Gate::allows(PermissionType::EditRecord, $instance), 403);
+        abort_unless(Gate::allows(CMSPermissionsEnum::EditRecord, $instance), 403);
 
         return view('dannyvel::cms/record-edit', [
             'type' => $config,
@@ -195,7 +193,7 @@ class CMSController extends Controller {
             throw new \RuntimeException("Unable to locate content type '{$type}'");
         }
 
-        abort_unless(Gate::allows(PermissionType::EditRecords, $type), 403);
+        abort_unless(Gate::allows(CMSPermissionsEnum::EditRecords, $type), 403);
         $instance = new $config->class();
         $this->save($cms, $request, $config, $instance);
 
@@ -212,7 +210,7 @@ class CMSController extends Controller {
          * @var \Illuminate\Database\Eloquent\Model $instance
          */
         $instance = call_user_func([$config->class, 'where'], 'id', $id)->firstOrFail();
-        abort_unless(Gate::allows(PermissionType::EditRecord, $instance), 403);
+        abort_unless(Gate::allows(CMSPermissionsEnum::EditRecord, $instance), 403);
         $this->save($cms, $request, $config, $instance);
 
         return redirect(route('cms.list.'.$type));
