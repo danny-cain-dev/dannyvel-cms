@@ -13,6 +13,7 @@ use Illuminate\Database\Eloquent\Relations\MorphOne;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Route;
 
 class CMSProvider {
 
@@ -72,11 +73,29 @@ class CMSProvider {
                 'config' => [],
                 'name' => $attribute,
                 'value' => $record->{$attribute}
-            ])->setValidationRules($rules)->setRequired(in_array('required', $rules));
+            ])->setValidationRules($rules)->setRequired(in_array('required', $rules, true));
+        });
+
+        $this->fieldTypeFactory('text', function(Model $record, $attribute, $name) {
+            $attr = $this->getAttributes($record);
+            $rules = [
+                'string'
+            ];
+
+            if ($attr[$attribute]->default || $attr[$attribute]->nullable) {
+                $rules[] = 'nullable';
+            } else {
+                $rules[] = 'required';
+            }
+
+            return FieldDTO::create()->setCaption($name)->setComponent('field-textarea')->setProperty($attribute)->setType('text')->setComponentConfig([
+                'config' => [],
+                'name' => $attribute,
+                'value' => $record->{$attribute}
+            ])->setValidationRules($rules)->setRequired(in_array('required', $rules, true));
         });
 
         $this->fieldTypeFactory('datetime', function(Model $record, $attribute, $name) {
-            // todo - implement
             return FieldDTO::create()->setCaption($name)->setComponent('field-date')->setProperty($attribute)->setType('string')->setComponentConfig([
                 'config' => [],
                 'name' => $attribute,
@@ -125,6 +144,18 @@ class CMSProvider {
             ])->setValidationRules([
                 'nullable'
             ]);
+        });
+    }
+
+    public static function CMSRoutes($prefix, $type) {
+        Route::prefix($prefix)->namespace('\\Dannyvel\\Plugins\\CMS\\Controllers')->group(function() use($type) {
+            Route::get('', 'CMSController@index')->defaults('type', $type)->name('cms.list.'.$type);
+
+            Route::get('create', 'CMSController@create')->defaults('type', $type)->name('cms.create.'.$type);
+            Route::post('create', 'CMSController@store')->defaults('type', $type)->name('cms.store.'.$type);
+
+            Route::get('{id}', 'CMSController@edit')->defaults('type', $type)->name('cms.edit.'.$type);
+            Route::post('{id}', 'CMSController@update')->defaults('type', $type)->name('cms.update.'.$type);
         });
     }
 
@@ -239,8 +270,9 @@ class CMSProvider {
 
             if (in_array($attribute, $relationships)) {
                 continue;
-            }
-            elseif (isset($casts[$attribute])) {
+            } elseif (isset($def->fieldTypeOverrides[$attribute])) {
+                $field_type = $def->fieldTypeOverrides[$attribute];
+            } elseif (isset($casts[$attribute])) {
                 $field_type = $casts[$attribute];
             }
 

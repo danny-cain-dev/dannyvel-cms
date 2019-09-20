@@ -10,8 +10,14 @@ class ContentTypeDTO {
     public $searchFields = [];
     public $readOnly = ['id', 'created_at', 'updated_at'];
     public $summaryFields = [];
+    public $fieldTypeOverrides = [];
 
     public static function create() { return new self(); }
+
+    public function overrideFieldType($field, $type) : ContentTypeDTO {
+        $this->fieldTypeOverrides[$field] = $type;
+        return $this;
+    }
 
     public function setSummaryFields(array $fields) : ContentTypeDTO {
         $this->summaryFields = $fields;
