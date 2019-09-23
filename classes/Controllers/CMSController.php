@@ -18,6 +18,8 @@ use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Gate;
 
 class CMSController extends Controller {
+    public static $cmsLayout = 'layouts.main';
+
     private function paginate($items, $perPage = 15, $page = null, $options = [])
     {
         $options['path'] = Paginator::resolveCurrentPath();
@@ -39,7 +41,8 @@ class CMSController extends Controller {
 
         return view('dannyvel::cms/records-list', [
             'type' => $config,
-            'records' => $this->paginate($results)
+            'records' => $this->paginate($results),
+            'layout' => self::$cmsLayout,
         ]);
     }
 
@@ -55,7 +58,8 @@ class CMSController extends Controller {
             'type' => $config,
             'record' => $instance,
             'fields' => $cms->getFields($type, $instance),
-            'relationships' => $cms->getRelationshipFields($type, $instance)
+            'relationships' => $cms->getRelationshipFields($type, $instance),
+            'layout' => self::$cmsLayout,
         ]);
     }
 
@@ -75,7 +79,8 @@ class CMSController extends Controller {
             'type' => $config,
             'record' => $instance,
             'fields' => $cms->getFields($type, $instance),
-            'relationships' => $cms->getRelationshipFields($type, $instance)
+            'relationships' => $cms->getRelationshipFields($type, $instance),
+            'layout' => self::$cmsLayout
         ]);
     }
 

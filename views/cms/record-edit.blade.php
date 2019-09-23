@@ -1,4 +1,4 @@
-@extends('layouts.main')
+@extends($layout ?? 'layouts.main')
 
 @section('title', $record->id ? 'Edit '.$record->title : 'New '.$type->name)
 

@@ -1,4 +1,4 @@
-@extends('layouts.main')
+@extends($layout ?? 'layouts.main')
 
 @section('title', $type->name)
 
