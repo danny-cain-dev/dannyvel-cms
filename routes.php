@@ -1,6 +1,6 @@
 <?php
 
-Route::namespace("DannyVel\\Plugins\\CMS\\Controllers")->middleware(["web", "auth:api"])->prefix("api/cms")->group(function() {
+Route::namespace("Dannyvel\\Plugins\\CMS\\Controllers")->middleware(["web", "auth:api"])->prefix("api/cms")->group(function() {
     // example routes
     /*
     Route::get('/pages/', 'CMSController@index')->defaults('type', 'pages')->name('cms.list.pages');

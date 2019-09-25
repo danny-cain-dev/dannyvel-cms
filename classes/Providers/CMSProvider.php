@@ -125,7 +125,11 @@ class CMSProvider {
                     $value[] = $rowData;
                 }
             } else {
-                $value = $record->{$attribute}()->get()->shift()->toArray();
+                $value = $record->{$attribute}()->get()->shift();
+                if ($value) {
+                    $value = $value->toArray();
+                }
+
                 if ($value) {
                     $value['_type'] = get_class($record->{$attribute}()->get()[0]);
                 } else {
