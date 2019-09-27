@@ -30,6 +30,8 @@ class CMSController extends Controller {
     }
 
     public function index(CMSProvider $cms, $type) {
+        abort_unless(Gate::allows(CMSPermissionsEnum::EditRecords, $type), 403);
+
         $config = $cms->getType($type);
         if (!$config) {
             abort(404);

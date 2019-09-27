@@ -33,6 +33,8 @@
 
         {{ $records->links() }}
 
-        <a href="{{ route('cms.create.'.$type->type) }}" class="btn btn-outline-primary">+ New {{ $type->name }}</a>
+        @can(Dannyvel\Plugins\CMS\Enums\CMSPermissionsEnum::EditRecords, $type)
+            <a href="{{ route('cms.create.'.$type->type) }}" class="btn btn-outline-primary">+ New {{ $type->name }}</a>
+        @endcan
     </div>
 @endsection
