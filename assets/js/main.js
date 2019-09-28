@@ -6,11 +6,17 @@
 
 // Script runners
 // import './main/runners';
-import jQuery from 'jquery';
 
 // Vue applications
-import './main/vue';
+// import './main/vue';
 
+import FieldRelationshipSingle from './vue/field/relationship-single';
+import FieldRelationshipMany from './vue/field/relationship-many';
+import FieldModelLookup from './vue/field/model-lookup';
+
+Vue.component('field-relationship-single', FieldRelationshipSingle);
+Vue.component('field-relationship-many', FieldRelationshipMany);
+Vue.component('field-model-lookup', FieldModelLookup);
 // Force apps/components/scripts that are used on every page to be in the main JS file not an async chunk so they load quicker
 // require.include('./vue/example.vue');
 // require.include('./runners/example.js');

@@ -1,0 +1,8 @@
+{
+    "default": {
+        "config": "webpack.config.js",
+        "dest": "assets/vendor/cms",
+        "publicPath": "/vendor/cms",
+        "packages": "package.json"
+    }
+}
